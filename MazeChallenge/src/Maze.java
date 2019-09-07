@@ -12,7 +12,7 @@ public class Maze {
 	private static final String blockedRoad = "X";
 	private static final String entryPoint = "S";
 	private static final String exitPoint = "G";
-	// why do we need a path? private static final String path = "P";
+	private static final String escapePath = "P";
 
 	private String[][] maze;
 	private boolean[][] alreadyVisitedMap;
@@ -171,44 +171,79 @@ public class Maze {
 	
 	public void printExitPath(List<Coordinates> exitPath) {
 		
-		String[][] tempMaze = Arrays.stream(maze).map(String[]::clone).toArray(String[][]::new);
+		StringBuilder result = new StringBuilder(getColumns() * (getRows() + 1));
 
-		for (Coordinates coordinate : exitPath) {
-			if (reachedEntryPoint(coordinate.getX(), coordinate.getY())
-					|| reachedExitPoint(coordinate.getX(), coordinate.getY())) {
-				continue;
-			}
-			//TODO change this 4 below, to whatever...
-			tempMaze[coordinate.getX()][coordinate.getY()] = "A";
-		}
+		result.append("(" + entryPointCoord.getX() + ":" + entryPointCoord.getY() + " (S)),");
+		
+		 for (int i = 0; i < exitPath.size() - 1; i++) { 
+			 
+			 if(i != 0) {
+				 
+				 result.append("(" + exitPath.get(i).getX() + ":" + exitPath.get(i).getY() + "),");
+				 
+			 }
+			 
+			 
+	      }   		
+
+		
+
+		
+		result.append("(" + exitPointCoord.getX() + ":" +  exitPointCoord.getY() + " (G))");
+
+		
+		System.out.println(result.toString());
+		
+		
+//		String[][] tempMaze = Arrays.stream(maze).map(String[]::clone).toArray(String[][]::new);
+
+//		for (Coordinates coordinate : exitPath) {
+//			if (reachedEntryPoint(coordinate.getX(), coordinate.getY())
+//					|| reachedExitPoint(coordinate.getX(), coordinate.getY())) {
+//				continue;
+//			}
+//			//TODO change this 4 below, to whatever...
+//			tempMaze[coordinate.getX()][coordinate.getY()] = escapePath;
+//		}
 		
 //		System.out.println(tempMaze);
 		
-		System.out.println(toString(tempMaze));
+//		System.out.println(toString(tempMaze));
 	}
 	
 	//TODO study
 	public String toString(String[][] maze) {
-		
+
 		StringBuilder result = new StringBuilder(getColumns() * (getRows() + 1));
-		
+
+		result.append("(" + entryPointCoord.getX() + ":" + entryPointCoord.getY() + " (S)),");
+
 		for (int row = 0; row < getRows(); row++) {
 			for (int column = 0; column < getColumns(); column++) {
-				if (maze[row][column].equals(openRoad)) {
-					result.append(' ');
-				} else if (maze[row][column].equals(blockedRoad)) {
-					result.append('#');
-				} else if (maze[row][column].equals(entryPoint)) {
-					result.append('S');
-				} else if (maze[row][column].equals(exitPoint)) {
-					result.append('E');
-				} else {
-					result.append('.');
+				
+
+				if (maze[row][column].equals(escapePath)) {
+					result.append("(" + row + ":" + column + "),");
+					
+					
+//				} else if (maze[row][column].equals(blockedRoad)) {
+//					result.append('#');
+//				} else if (maze[row][column].equals(entryPoint)) {
+//					result.append('S');
+//				} else if (maze[row][column].equals(exitPoint)) {
+//					result.append('E');
+//				} else {
+//					result.append('.');
 				}
 			}
-			result.append('\n');
+		
+//			result.append('\n');
 		}
+		
+		result.append("(" + exitPointCoord.getX() + ":" +  exitPointCoord.getY() + " (G))");
+
 		return result.toString();
+		
 	}
 	
 	//TODO study
