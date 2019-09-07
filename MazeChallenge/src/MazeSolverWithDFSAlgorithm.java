@@ -39,15 +39,24 @@ public class MazeSolverWithDFSAlgorithm {
 		for (int[] movementDirection : movementDirections) {
 			
 			Coordinates coordinates = new Coordinates(row + movementDirection[0], column + movementDirection[1]);
+			
+//			Coordinates coordinates = getNextCoordinate(row, column, movementDirection[0], movementDirection[1]);
 
 //			TODO check if this works and then refactor the above code
-			foundExitPath(maze, coordinates.getX(), coordinates.getY(), pathTaken);
+//			foundExitPath(maze, coordinates.getX(), coordinates.getY(), pathTaken);
+			
+	          if (foundExitPath(maze, coordinates.getX(), coordinates.getY(), pathTaken)) {
+	                return true;
+	            }
 			
 		}
 		
 		pathTaken.remove(pathTaken.size() - 1);
 		return false;
-		
 	}
+	
+//    private Coordinates getNextCoordinate(int row, int col, int i, int j) {
+//        return new Coordinates(row + i, col + j);
+//    }
 
 }

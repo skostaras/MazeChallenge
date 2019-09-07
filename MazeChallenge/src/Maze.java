@@ -71,16 +71,16 @@ public class Maze {
 
 		// creates a 2d String Array, with dimensions of number of Lines and Line length
 		maze = new String[mazeStringLines.length][mazeStringLines[0].length()];
-
+		
 		// creates a 2d Boolean Array, with the same maze dimensions, which will
 		// eventually depict a map of coordinates that the escape algorithm passed
 		// through
 		alreadyVisitedMap = new boolean[mazeStringLines.length][mazeStringLines[0].length()];
 
 		// builds the 2d String Array maze
-		for (int row = 0; row < maze.length; row++) {
+		for (int row = 0; row < getRows(); row++) {
 
-			for (int column = 0; column < maze[0].length; column++) {
+			for (int column = 0; column < getColumns(); column++) {
 
 				char mazeCharSymbol = mazeStringLines[row].charAt(column);
 				String mazeStringSymbol = Character.toString(mazeCharSymbol);
@@ -132,8 +132,12 @@ public class Maze {
 	}
 
 	public boolean pathIsBlocked(int x, int y) {
+		
+		if (x < 0 || y < 0 || x >= getRows() || y >= getColumns()) {
+			return true;
+		}
 
-		if (maze[x][y].equals(blockedRoad) || x < 0 || y < 0 || x >= maze.length || y >= maze[0].length) {
+		if (maze[x][y].equals(blockedRoad)) {
 			return true;
 		}
 
@@ -157,6 +161,14 @@ public class Maze {
 		return exitPointCoord;
 	}
 	
+    public int getRows() {
+        return maze.length;
+    }
+
+    public int getColumns() {
+        return maze[0].length;
+    }
+	
 	public void printExitPath(List<Coordinates> exitPath) {
 		
 		String[][] tempMaze = Arrays.stream(maze).map(String[]::clone).toArray(String[][]::new);
@@ -167,10 +179,36 @@ public class Maze {
 				continue;
 			}
 			//TODO change this 4 below, to whatever...
-			tempMaze[coordinate.getX()][coordinate.getY()] = "X";
+			tempMaze[coordinate.getX()][coordinate.getY()] = "A";
 		}
 		
-//		System.out.println(toString(tempMaze));
+//		System.out.println(tempMaze);
+		
+		System.out.println(toString(tempMaze));
+	}
+	
+	//TODO study
+	public String toString(String[][] maze) {
+		
+		StringBuilder result = new StringBuilder(getColumns() * (getRows() + 1));
+		
+		for (int row = 0; row < getRows(); row++) {
+			for (int column = 0; column < getColumns(); column++) {
+				if (maze[row][column].equals(openRoad)) {
+					result.append(' ');
+				} else if (maze[row][column].equals(blockedRoad)) {
+					result.append('#');
+				} else if (maze[row][column].equals(entryPoint)) {
+					result.append('S');
+				} else if (maze[row][column].equals(exitPoint)) {
+					result.append('E');
+				} else {
+					result.append('.');
+				}
+			}
+			result.append('\n');
+		}
+		return result.toString();
 	}
 	
 	//TODO study
