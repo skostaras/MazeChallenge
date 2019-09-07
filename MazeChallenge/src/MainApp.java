@@ -1,4 +1,6 @@
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainApp {
 
@@ -11,9 +13,24 @@ public class MainApp {
 		
 		MazeSolverWithDFSAlgorithm mazeSolverWithDFSAlgorithm = new MazeSolverWithDFSAlgorithm();
 		
-		mazeSolverWithDFSAlgorithm.findExitPath(maze);
+		List<Coordinates> exitPath = mazeSolverWithDFSAlgorithm.findExitPath(maze);
+		
+		
+		//TODO when empty list, return a message?
+        maze.printExitPath(exitPath);
+        maze.reset();
 		
 
 	}
+	
+			
+	
+	
+
+	
+	
+	
+	
+	
 
 }

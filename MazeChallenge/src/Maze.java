@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Maze {
@@ -13,7 +15,7 @@ public class Maze {
 	// why do we need a path? private static final String path = "P";
 
 	private String[][] maze;
-	private boolean[][] passedThroughMap;
+	private boolean[][] alreadyVisitedMap;
 	private Coordinates entryPointCoord;
 	private Coordinates exitPointCoord;
 
@@ -43,7 +45,7 @@ public class Maze {
 		}
 
 		scanner.close();
-		
+
 		mazeFileValidator.emptyFileValidate(mazeString);
 
 		return mazeString;
@@ -55,10 +57,10 @@ public class Maze {
 		// splits the mazeString lines (separated by 'new line' or 'return key') into an
 		// Array of Strings
 		String[] mazeStringLines = mazeString.split("[\r]?\n");
-		
+
 //		TODO check if this works, otherwise check the baeldung solution below
 		mazeFileValidator.unevenLinesValidate(mazeStringLines);
-		
+
 //		baeldung alternate
 //		for (int row = 0; row < maze.length; row++) {
 //			if (mazeStringLines[row].length() != maze[0].length) {
@@ -66,7 +68,6 @@ public class Maze {
 //						+ mazeStringLines[row].length() + " but should be " + maze[0].length + ")");
 //			}
 //		}
-		
 
 		// creates a 2d String Array, with dimensions of number of Lines and Line length
 		maze = new String[mazeStringLines.length][mazeStringLines[0].length()];
@@ -74,13 +75,13 @@ public class Maze {
 		// creates a 2d Boolean Array, with the same maze dimensions, which will
 		// eventually depict a map of coordinates that the escape algorithm passed
 		// through
-		passedThroughMap = new boolean[mazeStringLines.length][mazeStringLines[0].length()];
+		alreadyVisitedMap = new boolean[mazeStringLines.length][mazeStringLines[0].length()];
 
-		// builds the 2d String Array maze		
+		// builds the 2d String Array maze
 		for (int row = 0; row < maze.length; row++) {
-			
+
 			for (int column = 0; column < maze[0].length; column++) {
-				
+
 				char mazeCharSymbol = mazeStringLines[row].charAt(column);
 				String mazeStringSymbol = Character.toString(mazeCharSymbol);
 
@@ -108,14 +109,26 @@ public class Maze {
 					throw new IllegalArgumentException(
 							"The source Maze Text File contains at least an invalid character. Valid characters are '_', 'X', 'S' and 'G'.");
 				}
-				
-		
-				
-				
+
 			}
 		}
-		
 
+	}
+
+	public boolean reachedEntryPoint(int x, int y) {
+		if (x == entryPointCoord.getX() && y == entryPointCoord.getY()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean reachedExitPoint(int x, int y) {
+		if (x == exitPointCoord.getX() && y == exitPointCoord.getY()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public boolean pathIsBlocked(int x, int y) {
@@ -127,14 +140,43 @@ public class Maze {
 		return false;
 
 	}
-	
+
 	public boolean pointAlreadyVisited(int x, int y) {
-		return passedThroughMap[x][y];
+		return alreadyVisitedMap[x][y];
+	}
+
+	public void setAlreadyVisitedMap(int x, int y, boolean value) {
+		alreadyVisitedMap[x][y] = value;
+	}
+
+	public Coordinates getEntryPointCoord() {
+		return entryPointCoord;
+	}
+
+	public Coordinates getExitPointCoord() {
+		return exitPointCoord;
 	}
 	
+	public void printExitPath(List<Coordinates> exitPath) {
+		
+		String[][] tempMaze = Arrays.stream(maze).map(String[]::clone).toArray(String[][]::new);
+
+		for (Coordinates coordinate : exitPath) {
+			if (reachedEntryPoint(coordinate.getX(), coordinate.getY())
+					|| reachedExitPoint(coordinate.getX(), coordinate.getY())) {
+				continue;
+			}
+			//TODO change this 4 below, to whatever...
+			tempMaze[coordinate.getX()][coordinate.getY()] = "X";
+		}
+		
+//		System.out.println(toString(tempMaze));
+	}
 	
-	
-	
-	
-	
+	//TODO study
+    public void reset() {
+        for (int i = 0; i < alreadyVisitedMap.length; i++)
+            Arrays.fill(alreadyVisitedMap[i], false);
+    }
+
 }

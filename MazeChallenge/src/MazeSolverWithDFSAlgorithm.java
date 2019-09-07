@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MazeSolverWithDFSAlgorithm {
@@ -8,23 +9,18 @@ public class MazeSolverWithDFSAlgorithm {
 	private static final int[][] movementDirections = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
 	public List<Coordinates> findExitPath(Maze maze) {
-		
+
 		List<Coordinates> pathTaken = new ArrayList<>();
-		
-		
-		
-		
-		
-		
-		
-		return null;
-		
-		
+
+		if (foundExitPath(maze, maze.getEntryPointCoord().getX(), maze.getEntryPointCoord().getY(), pathTaken)) {
+			return pathTaken;
+		}
+		//TODO when does it reach here?
+		return Collections.emptyList();
 	}
-	
-	
-	
-	private boolean mazeExplore(Maze maze, int row, int column, List<Coordinates> pathTaken) {
+
+	// TODO change func name, why boolean?
+	private boolean foundExitPath(Maze maze, int row, int column, List<Coordinates> pathTaken) {
 		
 		if (maze.pathIsBlocked(row, column) || maze.pointAlreadyVisited(row, column)) {
 			return false;
@@ -32,18 +28,26 @@ public class MazeSolverWithDFSAlgorithm {
 		
 		
 		pathTaken.add(new Coordinates(row, column));
-		maze.setVisited(row, column, true);
-		if (maze.isExit(row, column)) {
+		maze.setAlreadyVisitedMap(row, column, true);
+		
+		
+		if (maze.reachedExitPoint(row, column)) {
 			return true;
 		}
-		for (int[] direction : DIRECTIONS) {
-			Coordinates coordinate = getNextCoordinate(row, column, direction[0], direction[1]);
-			if (explore(maze, coordinate.getX(), coordinate.getY(), pathTaken)) {
-				return true;
-			}
+		
+		
+		for (int[] movementDirection : movementDirections) {
+			
+			Coordinates coordinates = new Coordinates(row + movementDirection[0], column + movementDirection[1]);
+
+//			TODO check if this works and then refactor the above code
+			foundExitPath(maze, coordinates.getX(), coordinates.getY(), pathTaken);
+			
 		}
+		
 		pathTaken.remove(pathTaken.size() - 1);
 		return false;
+		
 	}
 
 }
