@@ -1,20 +1,18 @@
-package com.skostaras.main;
+package com.skostaras.application;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.skostaras.entities.Coordinates;
 import com.skostaras.services.Maze;
 import com.skostaras.services.MazeSolverWithDFSAlgorithm;
 
 public class MainApp {
 
-	 static String fileName = "validSolvableMaze1.txt";
-//	 static String fileName = "validNonSolvableMaze1.txt";
-//	 static String fileName = "nonValid2EntryPoints.txt";
-//	 static String fileName = "emptyMazeFile.txt";
-//	 static String fileName = "verySmallMaze.txt";
-	
+//	 private static String fileName = "validSolvableMaze1.txt";
+	 private static String fileName = "validNonSolvableMaze1.txt";
+//	 private static String fileName = "nonValid2EntryPoints.txt";
+//	 private static String fileName = "emptyMazeFile.txt";
+//	 private static String fileName = "verySmallMaze.txt";
 
 	public static void main(String[] args) {
 

@@ -1,15 +1,15 @@
 package com.skostaras.services;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import com.skostaras.application.Logging;
+import com.skostaras.application.MainApp;
 import com.skostaras.constants.ErrorMessage;
 import com.skostaras.entities.Coordinates;
-import com.skostaras.main.MainApp;
 
 public class Maze {
 
@@ -23,14 +23,16 @@ public class Maze {
 	private Coordinates entryPointCoord;
 	private Coordinates exitPointCoord;
 	MazeFileValidator mazeFileValidator = new MazeFileValidator();
+	Logging logging = new Logging();
+	final static Logger logger = Logger.getLogger(Maze.class.getName());
 
 	public Maze(File mazeFile) {
-		
+
 		try {
 			mazeString = mazeFileReader(mazeFile);
 		} catch (FileNotFoundException e) {
-			// TODO logging
-			e.printStackTrace();
+			logging.logAndPrint(logger, Level.SEVERE, e.getMessage());
+			System.exit(0);
 		}
 
 		mazeBuilder(mazeString);
@@ -39,7 +41,7 @@ public class Maze {
 	private String mazeFileReader(File mazeFile) throws FileNotFoundException {
 
 		Scanner scanner = new Scanner(mazeFile);
-		
+
 		while (scanner.hasNextLine()) {
 			mazeString += scanner.nextLine() + "\n";
 		}
@@ -58,8 +60,8 @@ public class Maze {
 
 		// checks if every row (line) has the same number of columns
 		mazeFileValidator.unevenLinesValidate(mazeStringLines);
-		
-		// checks if the source maze size is between 2 and Integer Max value 
+
+		// checks if the source maze size is between 2 and Integer Max value
 		mazeFileValidator.mazeSizeValidate(mazeStringLines);
 
 		// creates a 2d String Array, with dimensions of number of Lines and Line length
@@ -69,7 +71,7 @@ public class Maze {
 		// eventually depict a map of coordinates that the escape algorithm has passed
 		// through
 		alreadyVisitedMap = new boolean[mazeStringLines.length][mazeStringLines[0].length()];
-		
+
 		boolean entryPointFound = false;
 		boolean exitPointFound = false;
 
@@ -89,33 +91,35 @@ public class Maze {
 					maze[row][column] = blockedRoad;
 					break;
 				case entryPoint:
-					if(entryPointFound) {
-						throw new IllegalArgumentException(MainApp.getFileName() + ErrorMessage.MULTIPLE_ENTRY_POINTS.getValue());
+					if (entryPointFound) {
+						logging.throwAndLogSevereException(logger,
+								MainApp.getFileName() + ErrorMessage.MULTIPLE_ENTRY_POINTS.getValue());
 					}
 					maze[row][column] = entryPoint;
 					entryPointCoord = new Coordinates(row, column);
 					entryPointFound = true;
 					break;
 				case exitPoint:
-					if(exitPointFound) {
-						throw new IllegalArgumentException(MainApp.getFileName() + ErrorMessage.MULTIPLE_EXIT_POINTS.getValue());
+					if (exitPointFound) {
+						logging.throwAndLogSevereException(logger,
+								MainApp.getFileName() + ErrorMessage.MULTIPLE_EXIT_POINTS.getValue());
 					}
 					maze[row][column] = exitPoint;
 					exitPointCoord = new Coordinates(row, column);
 					exitPointFound = true;
 					break;
 				default:
-					throw new IllegalArgumentException(ErrorMessage.INVALID_CHARACTERS.getValue());
+					logging.throwAndLogSevereException(logger, ErrorMessage.INVALID_CHARACTERS.getValue());
 				}
 
 			}
 		}
-		
-		if(!entryPointFound) {
-			throw new IllegalArgumentException(MainApp.getFileName() + ErrorMessage.NO_ENTRY_POINT.getValue());
+
+		if (!entryPointFound) {
+			logging.throwAndLogSevereException(logger, MainApp.getFileName() + ErrorMessage.NO_ENTRY_POINT.getValue());
 		}
-		if(!exitPointFound) {
-			throw new IllegalArgumentException(MainApp.getFileName() + ErrorMessage.NO_EXIT_POINT.getValue());
+		if (!exitPointFound) {
+			logging.throwAndLogSevereException(logger, MainApp.getFileName() + ErrorMessage.NO_EXIT_POINT.getValue());
 		}
 
 	}
@@ -125,9 +129,9 @@ public class Maze {
 		// conditional is here to avoid printing just the entry and exit points, when
 		// path is empty
 		if (!exitPath.isEmpty()) {
-			
+
 			StringBuilder result = new StringBuilder(getColumns() * (getRows() + 1));
-			
+
 			// begins with the entry point
 			result.append("(" + entryPointCoord.getX() + ":" + entryPointCoord.getY() + " (S)),");
 
@@ -135,15 +139,11 @@ public class Maze {
 			for (int i = 1; i < exitPath.size() - 1; i++) {
 				result.append("(" + exitPath.get(i).getX() + ":" + exitPath.get(i).getY() + "),");
 			}
-			
+
 			// ends with the exit point
 			result.append("(" + exitPointCoord.getX() + ":" + exitPointCoord.getY() + " (G))");
-			
-			Logger logger = Logger.getLogger(Maze.class.getName());
-			
-//			logger.log(Level.INFO, result.toString());
 
-			System.out.println(result.toString());
+			logging.logAndPrint(logger, Level.INFO, result.toString());
 		}
 
 	}
