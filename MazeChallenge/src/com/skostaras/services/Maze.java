@@ -1,8 +1,15 @@
+package com.skostaras.services;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.skostaras.constants.ErrorMessage;
+import com.skostaras.entities.Coordinates;
+import com.skostaras.main.MainApp;
 
 public class Maze {
 
@@ -83,7 +90,7 @@ public class Maze {
 					break;
 				case entryPoint:
 					if(entryPointFound) {
-						throw new IllegalArgumentException(MainApp.fileName + ErrorMessage.MULTIPLE_ENTRY_POINTS.getValue());
+						throw new IllegalArgumentException(MainApp.getFileName() + ErrorMessage.MULTIPLE_ENTRY_POINTS.getValue());
 					}
 					maze[row][column] = entryPoint;
 					entryPointCoord = new Coordinates(row, column);
@@ -91,7 +98,7 @@ public class Maze {
 					break;
 				case exitPoint:
 					if(exitPointFound) {
-						throw new IllegalArgumentException(MainApp.fileName + ErrorMessage.MULTIPLE_EXIT_POINTS.getValue());
+						throw new IllegalArgumentException(MainApp.getFileName() + ErrorMessage.MULTIPLE_EXIT_POINTS.getValue());
 					}
 					maze[row][column] = exitPoint;
 					exitPointCoord = new Coordinates(row, column);
@@ -105,10 +112,10 @@ public class Maze {
 		}
 		
 		if(!entryPointFound) {
-			throw new IllegalArgumentException(MainApp.fileName + ErrorMessage.NO_ENTRY_POINT.getValue());
+			throw new IllegalArgumentException(MainApp.getFileName() + ErrorMessage.NO_ENTRY_POINT.getValue());
 		}
 		if(!exitPointFound) {
-			throw new IllegalArgumentException(MainApp.fileName + ErrorMessage.NO_EXIT_POINT.getValue());
+			throw new IllegalArgumentException(MainApp.getFileName() + ErrorMessage.NO_EXIT_POINT.getValue());
 		}
 
 	}
@@ -131,6 +138,10 @@ public class Maze {
 			
 			// ends with the exit point
 			result.append("(" + exitPointCoord.getX() + ":" + exitPointCoord.getY() + " (G))");
+			
+			Logger logger = Logger.getLogger(Maze.class.getName());
+			
+//			logger.log(Level.INFO, result.toString());
 
 			System.out.println(result.toString());
 		}

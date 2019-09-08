@@ -1,5 +1,10 @@
+package com.skostaras.services;
 import java.util.Collections;
 import java.util.List;
+
+import com.skostaras.constants.ErrorMessage;
+import com.skostaras.entities.Coordinates;
+import com.skostaras.main.MainApp;
 
 public class MazeSolverWithDFSAlgorithm {
 
@@ -14,7 +19,7 @@ public class MazeSolverWithDFSAlgorithm {
 		if (exitPathFound(maze, maze.getEntryPointCoord().getX(), maze.getEntryPointCoord().getY(), exitPath)) {
 			return exitPath;
 		} else {
-			System.out.println(MainApp.fileName + ErrorMessage.NON_SOLVABLE.getValue());
+			System.out.println(MainApp.getFileName() + ErrorMessage.NON_SOLVABLE.getValue());
 			return Collections.emptyList();
 		}
 	}

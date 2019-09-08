@@ -1,3 +1,4 @@
+package com.skostaras.entities;
 
 public class Coordinates {
 

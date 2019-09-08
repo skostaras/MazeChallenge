@@ -1,20 +1,24 @@
+package com.skostaras.main;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.skostaras.entities.Coordinates;
+import com.skostaras.services.Maze;
+import com.skostaras.services.MazeSolverWithDFSAlgorithm;
+
 public class MainApp {
 
-//	static String fileName = "validSolvableMaze1.txt";
-//	static String fileName = "validNonSolvableMaze1.txt";
-//	static String fileName = "nonValid2EntryPoints.txt";
-//	static String fileName = "emptyMazeFile.txt";
-	
-	static String fileName = "verySmallMaze.txt";
+	 static String fileName = "validSolvableMaze1.txt";
+//	 static String fileName = "validNonSolvableMaze1.txt";
+//	 static String fileName = "nonValid2EntryPoints.txt";
+//	 static String fileName = "emptyMazeFile.txt";
+//	 static String fileName = "verySmallMaze.txt";
 	
 
 	public static void main(String[] args) {
 
-		File mazeTxtFile = new File("resources/" + fileName);
+		File mazeTxtFile = new File("resources/" + getFileName());
 
 		// Reads the txt file, parses it into a String Array, and then builds a 2d
 		// String maze out of it. Also does some validations in between.
@@ -28,6 +32,11 @@ public class MainApp {
 		exitPath = mazeSolverWithDFSAlgorithm.findExitPath(maze, exitPath);
 
 		maze.printExitPath(exitPath);
+	}
+
+
+	public static String getFileName() {
+		return fileName;
 	}
 
 }

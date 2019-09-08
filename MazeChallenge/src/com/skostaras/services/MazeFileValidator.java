@@ -1,3 +1,5 @@
+package com.skostaras.services;
+import com.skostaras.constants.ErrorMessage;
 
 public class MazeFileValidator {
 
