@@ -49,8 +49,11 @@ public class Maze {
 		// or 'return key')
 		String[] mazeStringLines = mazeString.split("[\r]?\n");
 
-		//checks if every row (line) has the same number of columns
+		// checks if every row (line) has the same number of columns
 		mazeFileValidator.unevenLinesValidate(mazeStringLines);
+		
+		// checks if the source maze size is between 2 and Integer Max value 
+		mazeFileValidator.mazeSizeValidate(mazeStringLines);
 
 		// creates a 2d String Array, with dimensions of number of Lines and Line length
 		maze = new String[mazeStringLines.length][mazeStringLines[0].length()];

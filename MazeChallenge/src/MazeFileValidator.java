@@ -17,10 +17,20 @@ public class MazeFileValidator {
 			if (mazeStringLines[i].equals(""))
 				throw new IllegalArgumentException(ErrorMessage.EMPTY_ROW.getValue() + (i+1) + "." );
 			
-			if (mazeStringLines[i].length() != firstLineLength) {
+			if (mazeStringLines[i].length() != firstLineLength) 
 				throw new IllegalArgumentException(ErrorMessage.UNEVEN_ROWS.getValue());
-			}
+			
 		}
+	}
+	
+	public void mazeSizeValidate(String[] mazeStringLines) {
+		
+		if (mazeStringLines.length < 2)
+			throw new IllegalArgumentException(ErrorMessage.VERY_SMALL_MAZE.getValue());
+		
+		if (mazeStringLines.length > Integer.MAX_VALUE)
+			throw new IllegalArgumentException(ErrorMessage.VERY_BIG_MAZE.getValue());
+		
 	}
 
 }

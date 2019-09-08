@@ -4,10 +4,13 @@ import java.util.List;
 
 public class MainApp {
 
-	static String fileName = "validSolvableMaze1.txt";
+//	static String fileName = "validSolvableMaze1.txt";
 //	static String fileName = "validNonSolvableMaze1.txt";
 //	static String fileName = "nonValid2EntryPoints.txt";
 //	static String fileName = "emptyMazeFile.txt";
+	
+	static String fileName = "verySmallMaze.txt";
+	
 
 	public static void main(String[] args) {
 
