@@ -13,6 +13,10 @@ public class MazeFileValidator {
 		int firstLineLength = mazeStringLines[0].length();
 
 		for (int i = 0; i < mazeStringLines.length; i++) {
+			
+			if (mazeStringLines[i].equals(""))
+				throw new IllegalArgumentException(ErrorMessage.EMPTY_ROW.getValue() + (i+1) + "." );
+			
 			if (mazeStringLines[i].length() != firstLineLength) {
 				throw new IllegalArgumentException(ErrorMessage.UNEVEN_ROWS.getValue());
 			}

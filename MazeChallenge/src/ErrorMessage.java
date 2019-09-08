@@ -8,9 +8,10 @@ public enum ErrorMessage {
 			"The source Maze Text File contains at least one invalid character. Valid characters are '_', 'X', 'S' and 'G' (letters are case sensitive)."),
 	NON_SOLVABLE(" doesn't have a solution."),
 	UNEVEN_ROWS(
-			"The source Maze Text File contains rows with different number of columns. All rows should be equal in length."),
+			"The source Maze Text File contains rows with different number of columns, and/or empty rows. All rows should be equal in length."),
 	NO_ENTRY_POINT(" doesn't have an Entry Point (S)"), 
-	NO_EXIT_POINT(" doesn't have an Exit Point (G)");
+	NO_EXIT_POINT(" doesn't have an Exit Point (G)"),
+	EMPTY_ROW("The source Maze Text File contains an empty row, at line ");
 
 	private final String value;
 
