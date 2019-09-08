@@ -11,57 +11,52 @@ public class Maze {
 	private static final String entryPoint = "S";
 	private static final String exitPoint = "G";
 	private String[][] maze;
+	private String mazeString = "";
 	private boolean[][] alreadyVisitedMap;
 	private Coordinates entryPointCoord;
 	private Coordinates exitPointCoord;
 	MazeFileValidator mazeFileValidator = new MazeFileValidator();
 
 	public Maze(File mazeFile) {
-
-		String mazeString = "";
-
+		
 		try {
 			mazeString = mazeFileReader(mazeFile);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			// TODO logging
 			e.printStackTrace();
 		}
 
 		mazeBuilder(mazeString);
-
 	}
 
 	private String mazeFileReader(File mazeFile) throws FileNotFoundException {
 
-		String mazeString = "";
-
 		Scanner scanner = new Scanner(mazeFile);
-
+		
 		while (scanner.hasNextLine()) {
 			mazeString += scanner.nextLine() + "\n";
 		}
-
 		scanner.close();
 
 		mazeFileValidator.emptyFileValidate(mazeString);
 
 		return mazeString;
-
 	}
 
 	private void mazeBuilder(String mazeString) {
 
-		// splits the mazeString lines (separated by 'new line' or 'return key') into an
-		// Array of Strings
+		// splits the mazeString into an String Array of lines (separated by 'new line'
+		// or 'return key')
 		String[] mazeStringLines = mazeString.split("[\r]?\n");
 
+		//checks if every row (line) has the same number of columns
 		mazeFileValidator.unevenLinesValidate(mazeStringLines);
 
 		// creates a 2d String Array, with dimensions of number of Lines and Line length
 		maze = new String[mazeStringLines.length][mazeStringLines[0].length()];
 
-		// creates a 2d Boolean Array, with the same maze dimensions, which will
-		// eventually depict a map of coordinates that the escape algorithm passed
+		// creates a 2d Boolean Array, with the source text file dimensions, which will
+		// eventually depict a map of coordinates that the escape algorithm has passed
 		// through
 		alreadyVisitedMap = new boolean[mazeStringLines.length][mazeStringLines[0].length()];
 		
