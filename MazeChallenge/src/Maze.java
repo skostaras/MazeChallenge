@@ -63,7 +63,8 @@ public class Maze {
 		boolean entryPointFound = false;
 		boolean exitPointFound = false;
 
-		// builds the 2d String Array maze
+		// Builds the 2d String Array maze
+		// Also does some validations in between
 		for (int row = 0; row < getRows(); row++) {
 			for (int column = 0; column < getColumns(); column++) {
 
@@ -111,26 +112,26 @@ public class Maze {
 
 	public void printExitPath(List<Coordinates> exitPath) {
 
+		// conditional is here to avoid printing just the entry and exit points, when
+		// path is empty
 		if (!exitPath.isEmpty()) {
+			
 			StringBuilder result = new StringBuilder(getColumns() * (getRows() + 1));
-
+			
+			// begins with the entry point
 			result.append("(" + entryPointCoord.getX() + ":" + entryPointCoord.getY() + " (S)),");
 
+			// iterates through the exitPath, excluding the first and the last elements
 			for (int i = 1; i < exitPath.size() - 1; i++) {
 				result.append("(" + exitPath.get(i).getX() + ":" + exitPath.get(i).getY() + "),");
 			}
-
+			
+			// ends with the exit point
 			result.append("(" + exitPointCoord.getX() + ":" + exitPointCoord.getY() + " (G))");
 
 			System.out.println(result.toString());
 		}
 
-	}
-
-	// TODO study
-	public void reset() {
-		for (int i = 0; i < alreadyVisitedMap.length; i++)
-			Arrays.fill(alreadyVisitedMap[i], false);
 	}
 
 	public boolean reachedEntryPoint(int x, int y) {
