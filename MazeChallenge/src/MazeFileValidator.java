@@ -4,7 +4,7 @@ public class MazeFileValidator {
 	public void emptyFileValidate(String mazeString) {
 
 		if (mazeString == null || (mazeString = mazeString.trim()).length() == 0) {
-			throw new IllegalArgumentException("The source Maze Text File is empty.");
+			throw new IllegalArgumentException(ErrorMessage.EMPTY_FILE.getValue());
 		}
 	}
 
@@ -14,8 +14,7 @@ public class MazeFileValidator {
 
 		for (int i = 0; i < mazeStringLines.length; i++) {
 			if (mazeStringLines[i].length() != firstLineLength) {
-				throw new IllegalArgumentException(
-						"The source Maze Text File contains rows with different number of columns. All rows should be equal in length.");
+				throw new IllegalArgumentException(ErrorMessage.UNEVEN_ROWS.getValue());
 			}
 		}
 	}

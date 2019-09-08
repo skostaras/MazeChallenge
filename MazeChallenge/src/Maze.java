@@ -64,6 +64,9 @@ public class Maze {
 		// eventually depict a map of coordinates that the escape algorithm passed
 		// through
 		alreadyVisitedMap = new boolean[mazeStringLines.length][mazeStringLines[0].length()];
+		
+		boolean entryPointFound = false;
+		boolean exitPointFound = false;
 
 		// builds the 2d String Array maze
 		for (int row = 0; row < getRows(); row++) {
@@ -80,38 +83,52 @@ public class Maze {
 					maze[row][column] = blockedRoad;
 					break;
 				case entryPoint:
+					if(entryPointFound) {
+						throw new IllegalArgumentException(MainApp.fileName + ErrorMessage.MULTIPLE_ENTRY_POINTS.getValue());
+					}
 					maze[row][column] = entryPoint;
 					entryPointCoord = new Coordinates(row, column);
+					entryPointFound = true;
 					break;
 				case exitPoint:
+					if(exitPointFound) {
+						throw new IllegalArgumentException(MainApp.fileName + ErrorMessage.MULTIPLE_EXIT_POINTS.getValue());
+					}
 					maze[row][column] = exitPoint;
 					exitPointCoord = new Coordinates(row, column);
+					exitPointFound = true;
 					break;
 				default:
-					throw new IllegalArgumentException(
-							"The source Maze Text File contains at least one invalid character. Valid characters are '_', 'X', 'S' and 'G'.");
+					throw new IllegalArgumentException(ErrorMessage.INVALID_CHARACTERS.getValue());
 				}
 
 			}
+		}
+		
+		if(!entryPointFound) {
+			throw new IllegalArgumentException(MainApp.fileName + ErrorMessage.NO_ENTRY_POINT.getValue());
+		}
+		if(!exitPointFound) {
+			throw new IllegalArgumentException(MainApp.fileName + ErrorMessage.NO_EXIT_POINT.getValue());
 		}
 
 	}
 
 	public void printExitPath(List<Coordinates> exitPath) {
 
-		StringBuilder result = new StringBuilder(getColumns() * (getRows() + 1));
-		
-		
-		//TODO tweek this for when there is no solution
-		result.append("(" + entryPointCoord.getX() + ":" + entryPointCoord.getY() + " (S)),");
-		
-		for (int i = 1; i < exitPath.size() - 1; i++) {
-			result.append("(" + exitPath.get(i).getX() + ":" + exitPath.get(i).getY() + "),");
-		}
-		
-		result.append("(" + exitPointCoord.getX() + ":" + exitPointCoord.getY() + " (G))");
+		if (!exitPath.isEmpty()) {
+			StringBuilder result = new StringBuilder(getColumns() * (getRows() + 1));
 
-		System.out.println(result.toString());
+			result.append("(" + entryPointCoord.getX() + ":" + entryPointCoord.getY() + " (S)),");
+
+			for (int i = 1; i < exitPath.size() - 1; i++) {
+				result.append("(" + exitPath.get(i).getX() + ":" + exitPath.get(i).getY() + "),");
+			}
+
+			result.append("(" + exitPointCoord.getX() + ":" + exitPointCoord.getY() + " (G))");
+
+			System.out.println(result.toString());
+		}
 
 	}
 
