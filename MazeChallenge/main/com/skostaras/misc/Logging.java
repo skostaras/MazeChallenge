@@ -1,4 +1,4 @@
-package com.skostaras.application;
+package com.skostaras.misc;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;
@@ -16,6 +16,17 @@ public class Logging {
 			logAndPrint(logger, Level.SEVERE, e.getMessage());
 		} finally {
 			throw new IllegalArgumentException(message);
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public void throwAndLogNoSolutionException(Logger logger, String message) {
+		try {
+			throw new NoSolutionException(message);
+		} catch (Exception e) {
+			logAndPrint(logger, Level.INFO, e.getMessage());
+		} finally {
+			throw new NoSolutionException(message);
 		}
 	}
 

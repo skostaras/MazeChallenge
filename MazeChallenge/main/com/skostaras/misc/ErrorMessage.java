@@ -1,4 +1,4 @@
-package com.skostaras.constants;
+package com.skostaras.misc;
 
 public enum ErrorMessage {
 

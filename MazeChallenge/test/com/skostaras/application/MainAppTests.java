@@ -1,7 +1,6 @@
 package com.skostaras.application;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,8 +8,10 @@ import java.util.List;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import com.skostaras.constants.ErrorMessage;
+
 import com.skostaras.entities.Coordinates;
+import com.skostaras.misc.ErrorMessage;
+import com.skostaras.misc.NoSolutionException;
 import com.skostaras.services.Maze;
 import com.skostaras.services.MazeSolverWithDFSAlgorithm;
 
@@ -120,11 +121,10 @@ public class MainAppTests {
 	}
 
 	@Test
-	// TODO check this
 	public void nonSolvableTest() {
 
-//		expectedException.expect(IllegalArgumentException.class);
-//		expectedException.expectMessage(ErrorMessage.NON_SOLVABLE.getValue());
+		expectedException.expect(NoSolutionException.class);
+		expectedException.expectMessage(ErrorMessage.NON_SOLVABLE.getValue());
 		
 		String fileName = "validNonSolvableMaze1.txt";
 
@@ -135,8 +135,6 @@ public class MainAppTests {
 		List<Coordinates> exitPath = new ArrayList<>();
 		
 		exitPath = mazeSolverWithDFSAlgorithm.findExitPath(maze, exitPath);
-		
-		
 	}
 
 	@Test

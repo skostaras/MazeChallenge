@@ -8,8 +8,8 @@ import com.skostaras.services.MazeSolverWithDFSAlgorithm;
 
 public class MainApp {
 
-//	 private static String fileName = "validSolvableMaze1.txt";
-	 private static String fileName = "validNonSolvableMaze1.txt";
+	 private static String fileName = "validSolvableMaze1.txt";
+//	 private static String fileName = "validNonSolvableMaze1.txt";
 //	 private static String fileName = "nonValid2EntryPoints.txt";
 //	 private static String fileName = "emptyMazeFile.txt";
 //	 private static String fileName = "verySmallMaze.txt";
@@ -33,9 +33,7 @@ public class MainApp {
 		maze.printExitPath(result.toString());
 	}
 
-
 	public static String getFileName() {
 		return fileName;
 	}
-
 }

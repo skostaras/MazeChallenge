@@ -6,10 +6,11 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.skostaras.application.Logging;
+
 import com.skostaras.application.MainApp;
-import com.skostaras.constants.ErrorMessage;
 import com.skostaras.entities.Coordinates;
+import com.skostaras.misc.ErrorMessage;
+import com.skostaras.misc.Logging;
 
 public class Maze {
 

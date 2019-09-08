@@ -1,7 +1,8 @@
 package com.skostaras.services;
 import java.util.logging.Logger;
-import com.skostaras.application.Logging;
-import com.skostaras.constants.ErrorMessage;
+
+import com.skostaras.misc.ErrorMessage;
+import com.skostaras.misc.Logging;
 
 public class MazeFileValidator {
 	

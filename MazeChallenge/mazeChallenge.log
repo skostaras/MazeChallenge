@@ -388,3 +388,111 @@
   <message>validNonSolvableMaze1.txt doesn't have a solution.</message>
 </record>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-09-08T23:57:55</date>
+  <millis>1567976275393</millis>
+  <sequence>0</sequence>
+  <logger>com.skostaras.services.MazeSolverWithDFSAlgorithm</logger>
+  <level>INFO</level>
+  <class>com.skostaras.misc.Logging</class>
+  <method>logAndPrint</method>
+  <thread>1</thread>
+  <message>validNonSolvableMaze1.txt doesn't have a solution.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-09-09T00:01:36</date>
+  <millis>1567976496984</millis>
+  <sequence>0</sequence>
+  <logger>com.skostaras.services.MazeSolverWithDFSAlgorithm</logger>
+  <level>INFO</level>
+  <class>com.skostaras.misc.Logging</class>
+  <method>logAndPrint</method>
+  <thread>1</thread>
+  <message>validNonSolvableMaze1.txt doesn't have a solution.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-09-09T00:03:26</date>
+  <millis>1567976606580</millis>
+  <sequence>0</sequence>
+  <logger>com.skostaras.services.MazeSolverWithDFSAlgorithm</logger>
+  <level>INFO</level>
+  <class>com.skostaras.misc.Logging</class>
+  <method>logAndPrint</method>
+  <thread>1</thread>
+  <message>validNonSolvableMaze1.txt doesn't have a solution.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-09-09T00:04:23</date>
+  <millis>1567976663842</millis>
+  <sequence>0</sequence>
+  <logger>com.skostaras.services.MazeFileValidator</logger>
+  <level>SEVERE</level>
+  <class>com.skostaras.misc.Logging</class>
+  <method>logAndPrint</method>
+  <thread>1</thread>
+  <message>The source Maze is too small. The minimum accepted size is 2 by 2.</message>
+</record>
+<record>
+  <date>2019-09-09T00:04:23</date>
+  <millis>1567976663983</millis>
+  <sequence>6</sequence>
+  <logger>com.skostaras.services.MazeFileValidator</logger>
+  <level>SEVERE</level>
+  <class>com.skostaras.misc.Logging</class>
+  <method>logAndPrint</method>
+  <thread>1</thread>
+  <message>The source Maze Text File contains an empty row, at line 7.</message>
+</record>
+<record>
+  <date>2019-09-09T00:04:23</date>
+  <millis>1567976663992</millis>
+  <sequence>8</sequence>
+  <logger>com.skostaras.services.MazeFileValidator</logger>
+  <level>SEVERE</level>
+  <class>com.skostaras.misc.Logging</class>
+  <method>logAndPrint</method>
+  <thread>1</thread>
+  <message>The source Maze Text File is empty.</message>
+</record>
+<record>
+  <date>2019-09-09T00:04:23</date>
+  <millis>1567976663996</millis>
+  <sequence>9</sequence>
+  <logger>com.skostaras.services.MazeFileValidator</logger>
+  <level>SEVERE</level>
+  <class>com.skostaras.misc.Logging</class>
+  <method>logAndPrint</method>
+  <thread>1</thread>
+  <message>The source Maze Text File contains rows with different number of columns. All rows should be equal in length.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-09-09T00:07:26</date>
+  <millis>1567976846639</millis>
+  <sequence>0</sequence>
+  <logger>com.skostaras.services.Maze</logger>
+  <level>INFO</level>
+  <class>com.skostaras.misc.Logging</class>
+  <method>logAndPrint</method>
+  <thread>1</thread>
+  <message>(0:3 (S)),(1:3),(1:2),(2:2 (G))</message>
+</record>
+</log>
