@@ -23,7 +23,9 @@ public class MazeSolverWithDFSAlgorithm {
 		if (exitPathFound(maze, maze.getEntryPointCoord().getX(), maze.getEntryPointCoord().getY(), exitPath)) {
 			return exitPath;
 		} else {
+//			logger.setUseParentHandlers(false);
 			logging.logAndPrint(logger, Level.INFO, MainApp.getFileName() + ErrorMessage.NON_SOLVABLE.getValue());
+			System.exit(0);
 			return Collections.emptyList();
 		}
 	}

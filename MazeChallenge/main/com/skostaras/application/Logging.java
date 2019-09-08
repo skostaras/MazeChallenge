@@ -7,13 +7,15 @@ import java.util.logging.Logger;
 
 public class Logging {
 	
+	@SuppressWarnings("finally")
 	public void throwAndLogSevereException(Logger logger, String message) {
 		try {
 			throw new IllegalArgumentException(message);
 		} catch (Exception e) {
+			logger.setUseParentHandlers(false);
 			logAndPrint(logger, Level.SEVERE, e.getMessage());
 		} finally {
-			System.exit(0);
+			throw new IllegalArgumentException(message);
 		}
 	}
 

@@ -29,7 +29,8 @@ public class MainApp {
 		List<Coordinates> exitPath = new ArrayList<>();
 		exitPath = mazeSolverWithDFSAlgorithm.findExitPath(maze, exitPath);
 
-		maze.printExitPath(exitPath);
+		StringBuilder result = maze.getExitPath(exitPath);
+		maze.printExitPath(result.toString());
 	}
 
 

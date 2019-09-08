@@ -124,13 +124,13 @@ public class Maze {
 
 	}
 
-	public void printExitPath(List<Coordinates> exitPath) {
+	public StringBuilder getExitPath(List<Coordinates> exitPath) {
+		
+		StringBuilder result = new StringBuilder(getColumns() * (getRows() + 1));
 
 		// conditional is here to avoid printing just the entry and exit points, when
 		// path is empty
 		if (!exitPath.isEmpty()) {
-
-			StringBuilder result = new StringBuilder(getColumns() * (getRows() + 1));
 
 			// begins with the entry point
 			result.append("(" + entryPointCoord.getX() + ":" + entryPointCoord.getY() + " (S)),");
@@ -142,10 +142,14 @@ public class Maze {
 
 			// ends with the exit point
 			result.append("(" + exitPointCoord.getX() + ":" + exitPointCoord.getY() + " (G))");
-
-			logging.logAndPrint(logger, Level.INFO, result.toString());
+			
+			return result;
 		}
-
+		return result;
+	}
+	
+	public void printExitPath(String exitPath) {
+		logging.logAndPrint(logger, Level.INFO, exitPath);
 	}
 
 	public boolean reachedEntryPoint(int x, int y) {
