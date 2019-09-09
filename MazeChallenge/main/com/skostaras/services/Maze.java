@@ -18,14 +18,18 @@ public class Maze {
 	private static final String blockedRoad = "X";
 	private static final String entryPoint = "S";
 	private static final String exitPoint = "G";
-	private String[][] maze;
+	public String[][] mazeArray;
 	private String mazeString = "";
-	private boolean[][] alreadyVisitedMap;
+	public boolean[][] alreadyVisitedMap;
 	private Coordinates entryPointCoord;
 	private Coordinates exitPointCoord;
 	MazeFileValidator mazeFileValidator = new MazeFileValidator();
 	Logging logging = new Logging();
 	final static Logger logger = Logger.getLogger(Maze.class.getName());
+
+	public Maze() {
+		super();
+	}
 
 	public Maze(File mazeFile) {
 
@@ -39,7 +43,7 @@ public class Maze {
 		mazeBuilder(mazeString);
 	}
 
-	private String mazeFileReader(File mazeFile) throws FileNotFoundException {
+	public String mazeFileReader(File mazeFile) throws FileNotFoundException {
 
 		Scanner scanner = new Scanner(mazeFile);
 
@@ -53,7 +57,7 @@ public class Maze {
 		return mazeString;
 	}
 
-	private void mazeBuilder(String mazeString) {
+	public void mazeBuilder(String mazeString) {
 
 		// splits the mazeString into an String Array of lines (separated by 'new line'
 		// or 'return key')
@@ -66,7 +70,7 @@ public class Maze {
 		mazeFileValidator.mazeSizeValidate(mazeStringLines);
 
 		// creates a 2d String Array, with dimensions of number of Lines and Line length
-		maze = new String[mazeStringLines.length][mazeStringLines[0].length()];
+		mazeArray = new String[mazeStringLines.length][mazeStringLines[0].length()];
 
 		// creates a 2d Boolean Array, with the source text file dimensions, which will
 		// eventually depict a map of coordinates that the escape algorithm has passed
@@ -86,17 +90,17 @@ public class Maze {
 
 				switch (mazeStringSymbol) {
 				case openRoad:
-					maze[row][column] = openRoad;
+					mazeArray[row][column] = openRoad;
 					break;
 				case blockedRoad:
-					maze[row][column] = blockedRoad;
+					mazeArray[row][column] = blockedRoad;
 					break;
 				case entryPoint:
 					if (entryPointFound) {
 						logging.throwAndLogSevereException(logger,
 								MainApp.getFileName() + ErrorMessage.MULTIPLE_ENTRY_POINTS.getValue());
 					}
-					maze[row][column] = entryPoint;
+					mazeArray[row][column] = entryPoint;
 					entryPointCoord = new Coordinates(row, column);
 					entryPointFound = true;
 					break;
@@ -105,7 +109,7 @@ public class Maze {
 						logging.throwAndLogSevereException(logger,
 								MainApp.getFileName() + ErrorMessage.MULTIPLE_EXIT_POINTS.getValue());
 					}
-					maze[row][column] = exitPoint;
+					mazeArray[row][column] = exitPoint;
 					exitPointCoord = new Coordinates(row, column);
 					exitPointFound = true;
 					break;
@@ -173,7 +177,7 @@ public class Maze {
 		if (x < 0 || y < 0 || x >= getRows() || y >= getColumns()) {
 			return true;
 		}
-		if (maze[x][y].equals(blockedRoad)) {
+		if (mazeArray[x][y].equals(blockedRoad)) {
 			return true;
 		}
 		return false;
@@ -194,13 +198,24 @@ public class Maze {
 	public Coordinates getExitPointCoord() {
 		return exitPointCoord;
 	}
+	
+	public void setEntryPointCoord(Coordinates entryPointCoord) {
+		this.entryPointCoord = entryPointCoord;
+	}
+
+	public void setExitPointCoord(Coordinates exitPointCoord) {
+		this.exitPointCoord = exitPointCoord;
+	}
 
 	public int getRows() {
-		return maze.length;
+		return mazeArray.length;
 	}
 
 	public int getColumns() {
-		return maze[0].length;
+		return mazeArray[0].length;
 	}
 
+	public void setMazeArray(String[][] mazeArray) {
+		this.mazeArray = mazeArray;
+	}
 }
