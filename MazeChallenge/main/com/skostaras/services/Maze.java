@@ -18,7 +18,7 @@ public class Maze {
 	private static final String blockedRoad = "X";
 	private static final String entryPoint = "S";
 	private static final String exitPoint = "G";
-	private String[][] maze;
+	public String[][] maze;
 	private String mazeString = "";
 	private boolean[][] alreadyVisitedMap;
 	private Coordinates entryPointCoord;
@@ -26,6 +26,10 @@ public class Maze {
 	MazeFileValidator mazeFileValidator = new MazeFileValidator();
 	Logging logging = new Logging();
 	final static Logger logger = Logger.getLogger(Maze.class.getName());
+
+	public Maze() {
+		super();
+	}
 
 	public Maze(File mazeFile) {
 
@@ -39,7 +43,7 @@ public class Maze {
 		mazeBuilder(mazeString);
 	}
 
-	private String mazeFileReader(File mazeFile) throws FileNotFoundException {
+	public String mazeFileReader(File mazeFile) throws FileNotFoundException {
 
 		Scanner scanner = new Scanner(mazeFile);
 
@@ -53,7 +57,7 @@ public class Maze {
 		return mazeString;
 	}
 
-	private void mazeBuilder(String mazeString) {
+	public void mazeBuilder(String mazeString) {
 
 		// splits the mazeString into an String Array of lines (separated by 'new line'
 		// or 'return key')

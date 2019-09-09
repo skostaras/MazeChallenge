@@ -15,7 +15,7 @@ import com.skostaras.misc.NoSolutionException;
 import com.skostaras.services.Maze;
 import com.skostaras.services.MazeSolverWithDFSAlgorithm;
 
-public class MainAppTests {
+public class MainAppTest {
 
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
