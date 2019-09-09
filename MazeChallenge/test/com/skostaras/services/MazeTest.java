@@ -6,9 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Test;
-
 import com.skostaras.entities.Coordinates;
 
 public class MazeTest {
@@ -30,11 +28,11 @@ public class MazeTest {
 
 	@Test
 	public void mazeBuilderTest() {
-		String[][] expectedMaze = new String[][] { { "_", "_", "X", "S", "_" }, { "X", "X", "_", "_", "X" },
+		String[][] expectedMazeArray = new String[][] { { "_", "_", "X", "S", "_" }, { "X", "X", "_", "_", "X" },
 				{ "X", "X", "G", "X", "X" } };
 
 		maze.mazeBuilder(mazeString);
-		assertArrayEquals(expectedMaze, maze.maze);
+		assertArrayEquals(expectedMazeArray, maze.mazeArray);
 	}
 
 	@Test
